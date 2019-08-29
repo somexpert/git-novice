@@ -179,64 +179,6 @@ nothing to commit, working directory clean
 > {: .solution}
 {: .challenge}
 
-> ## Including Specific Files
->
-> How would you ignore all `.dat` files in your root directory except for
-> `final.dat`?
-> Hint: Find out what `!` (the exclamation point operator) does
->
-> > ## Solution
-> >
-> > You would add the following two lines to your .gitignore:
-> >
-> > ~~~
-> > *.dat           # ignore all data files
-> > !final.dat      # except final.data
-> > ~~~
-> > {: .output}
-> >
-> > The exclamation point operator will include a previously excluded entry.
-> >
-> > Note also that because you've previously committed `.dat` files in this
-> > lesson they will not be ignored with this new rule. Only future additions
-> > of `.dat` files added to the root directory will be ignored.
-> {: .solution}
-{: .challenge}
-
-> ## Ignoring Nested Files: Variation
->
-> Given a directory structure that looks similar to the earlier Nested Files
-> exercise, but with a slightly different directory structure:
->
-> ~~~
-> results/data
-> results/images
-> results/plots
-> results/analysis
-> ~~~
-> {: .language-bash}
->
-> How would you ignore all of the contents in the results folder, but not `results/data`?
->
-> Hint: think a bit about how you created an exception with the `!` operator
-> before.
->
-> > ## Solution
-> >
-> > If you want to ignore the contents of
-> > `results/` but not those of `results/data/`, you can change your `.gitignore` to ignore
-> > the contents of results folder, but create an exception for the contents of the
-> > `results/data` subfolder. Your .gitignore would look like this:
-> >
-> > ~~~
-> > results/*               # ignore everything in results folder
-> > !results/data/          # do not ignore results/data/ contents
-> > ~~~
-> > {: .output}
-> >
-> {: .solution}
-{: .challenge}
-
 > ## Ignoring all data Files in a Directory
 >
 > Assuming you have an empty .gitignore file, and given a directory structure that looks like:
@@ -258,27 +200,6 @@ nothing to commit, working directory clean
 > > Appending `results/data/position/gps/*.dat` will match every file in `results/data/position/gps`
 > > that ends with `.dat`.
 > > The file `results/data/position/gps/info.txt` will not be ignored.
-> {: .solution}
-{: .challenge}
-
-> ## The Order of Rules
->
-> Given a `.gitignore` file with the following contents:
->
-> ~~~
-> *.dat
-> !*.dat
-> ~~~
-> {: .language-bash}
->
-> What will be the result?
->
-> > ## Solution
-> >
-> > The `!` modifier will negate an entry from a previously defined ignore pattern.
-> > Because the `!*.dat` entry negates all of the previous `.dat` files in the `.gitignore`,
-> > none of them will be ignored, and all `.dat` files will be tracked.
-> >
 > {: .solution}
 {: .challenge}
 

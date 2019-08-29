@@ -30,7 +30,7 @@ Let's create a file called `mars.txt` that contains some notes
 about the Red Planet's suitability as a base.
 We'll use `nano` to edit the file;
 you can use whatever editor you like.
-In particular, this does not have to be the `core.editor` you set globally earlier. But remember, the bash command to create or edit a new file will depend on the editor you choose (it might not be `nano`). For a refresher on text editors, check out ["Which Editor?"](https://swcarpentry.github.io/shell-novice/03-create/) in [The Unix Shell](https://swcarpentry.github.io/shell-novice/) lesson.
+In particular, this does not have to be the `core.editor` you set globally earlier.
 
 ~~~
 $ nano mars.txt
@@ -140,7 +140,7 @@ When we run `git commit`,
 Git takes everything we have told it to save by using `git add`
 and stores a copy permanently inside the special `.git` directory.
 This permanent copy is called a [commit]({{ page.root }}{% link reference.md %}#commit)
-(or [revision]({{ page.root }}{% link reference.md %}#revision)) and its short identifier is `f22b25e`. Your commit may have another identifier.
+(or [revision]({{ page.root }}{% link reference.md %}#revision)) and its short identifier is `f22b25e`. Each person's commit identifier will be unique to them.
 
 We use the `-m` flag (for "message")
 to record a short, descriptive, and specific comment that will help us remember later on what we did and why.
@@ -264,21 +264,9 @@ index df0654a..315bf3a 100644
 ~~~
 {: .output}
 
-The output is cryptic because
-it is actually a series of commands for tools like editors and `patch`
-telling them how to reconstruct one file given the other.
-If we break it down into pieces:
-
-1.  The first line tells us that Git is producing output similar to the Unix `diff` command
-    comparing the old and new versions of the file.
-2.  The second line tells exactly which versions of the file
-    Git is comparing;
-    `df0654a` and `315bf3a` are unique computer-generated labels for those versions.
-3.  The third and fourth lines once again show the name of the file being changed.
-4.  The remaining lines are the most interesting, they show us the actual differences
-    and the lines on which they occur.
-    In particular,
-    the `+` marker in the first column shows where we added a line.
+The output is a bit cryptip because it's giving some special information that can be used by other tools or editors.
+The final lines are the most interesting, they show us the actual differences and the lines on which they occur.
+In particular, the `+` marker in the first column shows where we added a line.
 
 After reviewing our change, it's time to commit it:
 
@@ -484,14 +472,6 @@ Date:   Thu Aug 22 09:51:46 2013 -0400
 ~~~
 {: .output}
 
-> ## Word-based diffing
->
-> Sometimes, e.g. in the case of the text documents a line-wise
-> diff is too coarse. That is where the `--color-words` option of
-> `git diff` comes in very useful as it highlights the changed
-> words using colors.
-{: .callout}
-
 > ## Paging the Log
 >
 > When the output of `git log` is too long to fit in your screen,
@@ -537,20 +517,6 @@ Date:   Thu Aug 22 09:51:46 2013 -0400
 > {: .language-bash}
 > ~~~
 > * 005937f Discuss concerns about Mars' climate for Mummy
-> * 34961b1 Add concerns about effects of Mars' moons on Wolfman
-> * f22b25e Start notes on Mars as a base
-> ~~~
-> {: .output}
->
-> You can also combine the `--oneline` options with others. One useful
-> combination is:
->
-> ~~~
-> $ git log --oneline --graph --all --decorate
-> ~~~
-> {: .language-bash}
-> ~~~
-> * 005937f Discuss concerns about Mars' climate for Mummy (HEAD, master)
 > * 34961b1 Add concerns about effects of Mars' moons on Wolfman
 > * f22b25e Start notes on Mars as a base
 > ~~~
@@ -626,153 +592,6 @@ repository (`git commit`):
 > > Answer 1 is not descriptive enough, and the purpose of the commit is unclear;
 > > and answer 2 is redundant to using "git diff" to see what changed in this commit;
 > > but answer 3 is good: short, descriptive, and imperative.
-> {: .solution}
-{: .challenge}
-
-> ## Committing Changes to Git
->
-> Which command(s) below would save the changes of `myfile.txt`
-> to my local Git repository?
->
-> 1. ~~~
->    $ git commit -m "my recent changes"
->    ~~~
->    {: .language-bash}
-> 2. ~~~
->    $ git init myfile.txt
->    $ git commit -m "my recent changes"
->    ~~~
->    {: .language-bash}
-> 3. ~~~
->    $ git add myfile.txt
->    $ git commit -m "my recent changes"
->    ~~~
->    {: .language-bash}
-> 4. ~~~
->    $ git commit -m myfile.txt "my recent changes"
->    ~~~
->    {: .language-bash}
->
-> > ## Solution
-> >
-> > 1. Would only create a commit if files have already been staged.
-> > 2. Would try to create a new repository.
-> > 3. Is correct: first add the file to the staging area, then commit.
-> > 4. Would try to commit a file "my recent changes" with the message myfile.txt.
-> {: .solution}
-{: .challenge}
-
-> ## Committing Multiple Files
->
-> The staging area can hold changes from any number of files
-> that you want to commit as a single snapshot.
->
-> 1. Add some text to `mars.txt` noting your decision
-> to consider Venus as a base
-> 2. Create a new file `venus.txt` with your initial thoughts
-> about Venus as a base for you and your friends
-> 3. Add changes from both files to the staging area,
-> and commit those changes.
->
-> > ## Solution
-> >
-> > First we make our changes to the `mars.txt` and `venus.txt` files:
-> > ~~~
-> > $ nano mars.txt
-> > $ cat mars.txt
-> > ~~~
-> > {: .language-bash}
-> > ~~~
-> > Maybe I should start with a base on Venus.
-> > ~~~
-> > {: .output}
-> > ~~~
-> > $ nano venus.txt
-> > $ cat venus.txt
-> > ~~~
-> > {: .language-bash}
-> > ~~~
-> > Venus is a nice planet and I definitely should consider it as a base.
-> > ~~~
-> > {: .output}
-> > Now you can add both files to the staging area. We can do that in one line:
-> >
-> > ~~~
-> > $ git add mars.txt venus.txt
-> > ~~~
-> > {: .language-bash}
-> > Or with multiple commands:
-> > ~~~
-> > $ git add mars.txt
-> > $ git add venus.txt
-> > ~~~
-> > {: .language-bash}
-> > Now the files are ready to commit. You can check that using `git status`. If you are ready to commit use:
-> > ~~~
-> > $ git commit -m "Write plans to start a base on Venus"
-> > ~~~
-> > {: .language-bash}
-> > ~~~
-> > [master cc127c2]
-> >  Write plans to start a base on Venus
-> >  2 files changed, 2 insertions(+)
-> >  create mode 100644 venus.txt
-> > ~~~
-> > {: .output}
-> {: .solution}
-{: .challenge}
-
-> ## `bio` Repository
->
-> * Create a new Git repository on your computer called `bio`.
-> * Write a three-line biography for yourself in a file called `me.txt`,
-> commit your changes
-> * Modify one line, add a fourth line
-> * Display the differences
-> between its updated state and its original state.
->
-> > ## Solution
-> >
-> > If needed, move out of the `planets` folder:
-> >
-> > ~~~
-> > $ cd ..
-> > ~~~
-> > {: .language-bash}
-> >
-> > Create a new folder called `bio` and 'move' into it:
-> >
-> > ~~~
-> > $ mkdir bio
-> > $ cd bio
-> > ~~~
-> > {: .language-bash}
-> >
-> > Initialise git:
-> >
-> > ~~~
-> > $ git init
-> > ~~~
-> > {: .language-bash}
-> >
-> > Create your biography file `me.txt` using `nano` or another text editor.
-> > Once in place, add and commit it to the repository:
-> >
-> > ~~~
-> > $ git add me.txt
-> > $ git commit -m "Add biography file" 
-> > ~~~
-> > {: .language-bash}
-> >
-> > Modify the file as described (modify one line, add a fourth line).
-> > To display the differences
-> > between its updated state and its original state, use `git diff`:
-> >
-> > ~~~
-> > $ git diff me.txt
-> > ~~~
-> > {: .language-bash}
-> >
 > {: .solution}
 {: .challenge}
 

@@ -22,8 +22,7 @@ Systems like Git allow us to move work between any two repositories.  In
 practice, though, it's easiest to use one copy as a central hub, and to keep it
 on the web rather than on someone's laptop.  Most programmers use hosting
 services like [GitHub](https://github.com), [Bitbucket](https://bitbucket.org) or
-[GitLab](https://gitlab.com/) to hold those master copies; we'll explore the pros
-and cons of this in the final section of this lesson.
+[GitLab](https://gitlab.com/) to hold those master copies.
 
 Let's start by sharing the changes we've made to our current project with the
 world.  Log in to GitHub, then click on the icon in the top right corner to
@@ -53,16 +52,6 @@ $ cd planets
 $ git init
 ~~~
 {: .language-bash}
-
-If you remember back to the earlier [lesson](../04-changes/) where we added and
-committed our earlier work on `mars.txt`, we had a diagram of the local repository
-which looked like this:
-
-![The Local Repository with Git Staging Area](../fig/git-staging-area.svg)
-
-Now that we have two repositories, we need a diagram like this:
-
-![Freshly-Made GitHub Repository](../fig/git-freshly-made-github-repo.svg)
 
 Note that our local repository still contains our earlier work on `mars.txt`, but the
 remote repository on GitHub appears empty as it doesn't contain any files yet.
@@ -186,10 +175,6 @@ To https://github.com/vlad/planets.git
 > to make Git default to using the terminal for usernames and passwords.
 {: .callout}
 
-Our local and remote repositories are now in this state:
-
-![GitHub Repository After First Push](../fig/github-repo-after-first-push.svg)
-
 > ## The '-u' Flag
 >
 > You may see a `-u` option used with `git push` in some documentation.  This
@@ -244,30 +229,6 @@ GitHub, though, this command would download them to our local repository.
 > {: .solution}
 {: .challenge}
 
-> ## Uploading files directly in GitHub browser
->
-> Github also allows you to skip the command line and upload files directly to 
-> your repository without having to leave the broswer. There are two options. 
-> First you can click the "Upload files" button in the toolbar at the top of the
-> file tree. Or, you can drag and drop files from your desktop onto the file 
-> tree. You can read more about this [on this GitHub page](https://help.github.com/articles/adding-a-file-to-a-repository/)
-{: .callout}
-
-> ## GitHub Timestamp
->
-> Create a remote repository on GitHub. Push the contents of your local
-> repository to the remote. Make changes to your local repository and push these
-> changes. Go to the repo you just created on GitHub and check the
-> [timestamps]({{ page.root }}{% link reference.md %}#timestamp) of the files. How does GitHub
-> record times, and why?
->
-> > ## Solution
-> > GitHub displays timestamps in a human readable relative format (i.e. "22 hours ago" or "three 
-> > weeks ago"). However, if you hover over the timestamp, you can see the exact time at which the 
-> > last change to the file occurred.
-> {: .solution}
-{: .challenge}
-
 > ## Push vs. Commit
 >
 > In this lesson, we introduced the "git push" command.
@@ -277,55 +238,5 @@ GitHub, though, this command would download them to our local repository.
 > > When we push changes, we're interacting with a remote repository to update it with the changes 
 > > we've made locally (often this corresponds to sharing the changes we've made with others). 
 > > Commit only updates your local repository.
-> {: .solution}
-{: .challenge}
-
-> ## GitHub License and README files
->
-> In this section we learned about creating a remote repository on GitHub, but when you initialized 
-> your GitHub repo, you didn't add a README.md or a license file. If you had, what do you think 
-> would have happened when you tried to link your local and remote repositories?
->
-> > ## Solution
-> > In this case, we'd see a merge conflict due to unrelated histories. When GitHub creates a 
-> > README.md file, it performs a commit in the remote repository. When you try to pull the remote 
-> > repository to your local repository, Git detects that they have histories that do not share a 
-> > common origin and refuses to merge.
-> > ~~~
-> > $ git pull origin master
-> > ~~~
-> > {: .language-bash}
-> >
-> > ~~~
-> > warning: no common commits
-> > remote: Enumerating objects: 3, done.
-> > remote: Counting objects: 100% (3/3), done.
-> > remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
-> > Unpacking objects: 100% (3/3), done.
-> > From https://github.com/vlad/planets
-> >  * branch            master     -> FETCH_HEAD
-> >  * [new branch]      master     -> origin/master
-> > fatal: refusing to merge unrelated histories
-> > ~~~
-> > {: .output}
-> >
-> > You can force git to merge the two repositories with the option `--allow-unrelated-histories`. 
-> > Be careful when you use this option and carefully examine the contents of local and remote 
-> > repositories before merging.
-> > ~~~
-> > $ git pull --allow-unrelated-histories origin master
-> > ~~~
-> > {: .language-bash}
-> >
-> > ~~~
-> > From https://github.com/vlad/planets
-> >  * branch            master     -> FETCH_HEAD
-> > Merge made by the 'recursive' strategy.
-> > README.md | 1 +
-> > 1 file changed, 1 insertion(+)
-> > create mode 100644 README.md
-> > ~~~
-> > {: .output}
-> >
 > {: .solution}
 {: .challenge}
